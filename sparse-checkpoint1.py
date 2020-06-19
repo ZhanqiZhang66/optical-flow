@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-
+#%%
 # Parameters for Shi-Tomasi corner detection
 feature_params = dict(maxCorners = 300, qualityLevel = 0.2, minDistance = 2, blockSize = 7)
 # Parameters for Lucas-Kanade optical flow
