@@ -1,4 +1,4 @@
-This repository is for the article ["Introduction to Motion Estimation with Optical Flow"](https://blog.nanonets.com/optical-flow/) published with Nanonets.
+["Introduction to Motion Estimation with Optical Flow"]
 
 ---
 
