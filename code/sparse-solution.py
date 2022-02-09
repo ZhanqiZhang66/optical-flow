@@ -1,12 +1,16 @@
 import cv2 as cv
 import numpy as np
+#%%
+video_idx = r"D:\79F0-7-1-20-OF_trim"
+stablized_video_name = video_idx + ".mp4"
+stablized_of_video_name = video_idx + "_out_Sparse.avi"
 
 # Parameters for Shi-Tomasi corner detection
 feature_params = dict(maxCorners = 300, qualityLevel = 0.2, minDistance = 2, blockSize = 7)
 # Parameters for Lucas-Kanade optical flow
-lk_params = dict(winSize = (15,15), maxLevel = 2, criteria = (cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
+lk_params = dict(winSize =(15,15), maxLevel = 2, criteria = (cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
 # The video feed is read in as a VideoCapture object
-cap = cv.VideoCapture("12_stable.mp4")
+cap = cv.VideoCapture(stablized_video_name)
 # Variable for color to draw optical flow track
 color = (0, 255, 0)
 # ret = a boolean return value from getting the frame, first_frame = the first frame in the entire video sequence
@@ -22,11 +26,16 @@ mask = np.zeros_like(first_frame)
 codec = 'MJPG'
 fps = 33
 fourcc = cv.VideoWriter_fourcc(*codec)
-out = cv.VideoWriter("out_12.avi", fourcc, fps, (640, 360), True)
+print("frame_width", cap.get(cv.CAP_PROP_FRAME_WIDTH) ) # float
+print("frame_height", cap.get(cv.CAP_PROP_FRAME_HEIGHT) ) # float
+out = cv.VideoWriter(stablized_of_video_name, fourcc, fps, (1920, 1080), True)
 
 while(cap.isOpened()):
     # ret = a boolean return value from getting the frame, frame = the current frame being projected in the video
     ret, frame = cap.read()
+    if ret == False:
+        print('ret==false')
+        break
     # Converts each frame to grayscale - we previously only converted the first frame to grayscale
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     # Calculates sparse optical flow by Lucas-Kanade method
